@@ -5,6 +5,7 @@ import config from '../../config.json' assert { type: "json" };
 const { articlesURL } = config;
 import { Article } from '../models/Article.js';
 import handleAxiosError from '../utils/handleAxiosError.js';
+import validateArticle from '../utils/validateArticle.js';
 
 const getArticleList = (page, pageSize, keyword) => {
   return axios.get(articlesURL, {
@@ -12,14 +13,20 @@ const getArticleList = (page, pageSize, keyword) => {
   })
     .then(res => {
       const articleList = res.data?.list || [];
-      return articleList.map(i => new Article(i));
+      return articleList
+      .filter(validateArticle)
+      .map(i => new Article(i));
     })
     .catch(e => handleAxiosError(e, 'getArticleList'));
 }
 
 const getArticle = (i) => {
   return axios.get(`${articlesURL}/${i}`)
-    .then(res => res.data)
+    .then(res => {
+      const data = res.data;
+      if (!validateArticle(data)) return null;
+      return data; // return new Article(data)
+      })
     .catch(e => handleAxiosError(e, 'getArticle'));
 }
 

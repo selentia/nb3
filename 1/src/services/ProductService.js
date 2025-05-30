@@ -6,6 +6,7 @@ const { productsURL } = config;
 import { Product } from '../models/Product.js';
 import { ElectronicProduct } from '../models/ElectronicProduct.js';
 import handleAxiosError from '../utils/handleAxiosError.js';
+import validateProduct from '../utils/validateProduct.js';
 
 const getProductList = async (page, pageSize, keyword) => {
   try {
@@ -13,10 +14,12 @@ const getProductList = async (page, pageSize, keyword) => {
       params: { page, pageSize, keyword }
     });
     const productList = res.data?.list || [];
-    return productList.map(i => {
-      const isElectronic = i.tags?.includes('전자제품');
-      return isElectronic ? new ElectronicProduct(i) : new Product(i);
-    });
+    return productList
+      .filter(validateProduct)
+      .map(i => {
+        const isElectronic = i.tags?.includes('전자제품');
+        return isElectronic ? new ElectronicProduct(i) : new Product(i);
+      });
   } catch (e) {
     return handleAxiosError(e, 'getProductInstanceList');
   }
@@ -25,7 +28,13 @@ const getProductList = async (page, pageSize, keyword) => {
 const getProduct = async (i) => {
   try {
     const res = await axios.get(`${productsURL}/${i}`);
-    return res.data;
+    const data = res.data;
+
+    if (!validateProduct(data)) return null;
+    return data;
+
+    /* const isElectronic = data.tags?.includes('전자제품');
+    return isElectronic ? new ElectronicProduct(data) : new Product(data); */
   } catch (e) {
     return handleAxiosError(e, 'deleteArticle');
   }
