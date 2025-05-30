@@ -1,6 +1,8 @@
 import { getArticleList, getArticle, createArticle, patchArticle, deleteArticle } from './src/services/ArticleService.js';
 import { getProductList, getProduct, createProduct, patchProduct, deleteProduct } from './src/services/ProductService.js';
 
+const LINE = '\n// -------------------- //\n'
+
 const executeArticles = async (page, pageSize, keyword) => {
   const getArticleListResult = await getArticleList(page, pageSize, keyword)
 
@@ -40,8 +42,6 @@ const executeProducts = async (page, pageSize, keyword) => {
 const main = async (page, pageSize, keyword) => {
   const productResults = await executeProducts(page, pageSize, keyword);
   const articleResults = await executeArticles(page, pageSize, keyword);
-
-  const LINE = '\n// -------------------- //\n'
 
   console.log('Product 인스턴스 목록:', productResults.getProductListResult, LINE);
   console.log('getProduct 결과:', productResults.getProductResult, LINE);

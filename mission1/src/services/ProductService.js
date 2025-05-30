@@ -1,12 +1,13 @@
 import axios from 'axios';
-axios.defaults.timeout = 5000;
 
-import config from '../../config.json' assert { type: "json" };
-const { productsURL } = config;
-import { Product } from '../models/Product.js';
-import { ElectronicProduct } from '../models/ElectronicProduct.js';
 import handleAxiosError from '../utils/handleAxiosError.js';
 import validateProduct from '../utils/validateProduct.js';
+import config from '../../config.json' assert { type: "json" };
+import { Product } from '../models/Product.js';
+import { ElectronicProduct } from '../models/ElectronicProduct.js';
+
+axios.defaults.timeout = 5000;
+const { productsURL } = config;
 
 const getProductList = async (page, pageSize, keyword) => {
   try {

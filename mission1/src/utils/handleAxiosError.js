@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const handleAxiosError = (e, label) => {
   if (axios.isAxiosError(e)) {
-    const status = e.response?.status ?? 'Unknown';
+    const status = e.response?.status ?? 999;
     const message =
       e.response?.data?.message ||
       e.response?.data?.error?.message ||

@@ -1,11 +1,12 @@
 import axios from 'axios';
-axios.defaults.timeout = 5000;
 
-import config from '../../config.json' assert { type: "json" };
-const { articlesURL } = config;
-import { Article } from '../models/Article.js';
 import handleAxiosError from '../utils/handleAxiosError.js';
 import validateArticle from '../utils/validateArticle.js';
+import config from '../../config.json' assert { type: "json" };
+import { Article } from '../models/Article.js';
+
+axios.defaults.timeout = 5000;
+const { articlesURL } = config;
 
 const getArticleList = (page, pageSize, keyword) => {
   return axios.get(articlesURL, {
@@ -43,7 +44,6 @@ const createArticle = ({ title, content, image }) => {
     .then(res => res.data)
     .catch(e => handleAxiosError(e, 'createArticle'));
 }
-
 
 const patchArticle = (i, body) => {
   return axios.patch(`${articlesURL}/${i}`, body, {
