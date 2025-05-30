@@ -9,7 +9,7 @@ export class Article {
     this.title = title;
     this.content = content;
     this.writer = writer;
-    this.createdAt = createdAt ? new Date(createdAt) : new Date();
+    this.createdAt = new Date();
   }
 
   get title() {
