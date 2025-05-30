@@ -5,7 +5,7 @@ export class Article {
   #likeCount = 0;
   #createdAt;
 
-  constructor({ title, content, writer = '익명', createdAt }) {//writer 반환 X
+  constructor({ title, content, writer = '익명' }) {//writer 반환 X
     this.title = title;
     this.content = content;
     this.writer = writer;
