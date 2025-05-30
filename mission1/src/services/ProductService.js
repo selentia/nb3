@@ -9,16 +9,22 @@ import { ElectronicProduct } from '../models/ElectronicProduct.js';
 axios.defaults.timeout = 5000;
 const { productsURL } = config;
 
+const elecTag = '전자제품';
+
 const getProductList = async (page, pageSize, keyword) => {
   try {
     const res = await axios.get(productsURL, {
       params: { page, pageSize, keyword }
     });
     const productList = res.data?.list || [];
+    
     return productList
       .filter(validateProduct)
       .map(i => {
-        const isElectronic = i.tags?.includes('전자제품');
+        const isElectronic = i.tags?.some(tag =>
+          tag.replace(/^#/, '').split(',').includes(elecTag)
+        );
+        
         return isElectronic ? new ElectronicProduct(i) : new Product(i);
       });
   } catch (e) {
