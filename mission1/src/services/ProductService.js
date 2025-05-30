@@ -22,7 +22,7 @@ const getProductList = async (page, pageSize, keyword) => {
         return isElectronic ? new ElectronicProduct(i) : new Product(i);
       });
   } catch (e) {
-    return handleAxiosError(e, 'getProductInstanceList');
+    return handleAxiosError(e, getProductList.name);
   }
 }
 
@@ -37,7 +37,7 @@ const getProduct = async (i) => {
     /* const isElectronic = data.tags?.includes('전자제품');
     return isElectronic ? new ElectronicProduct(data) : new Product(data); */
   } catch (e) {
-    return handleAxiosError(e, 'deleteArticle');
+    return handleAxiosError(e, getProduct.name);
   }
 }
 
@@ -56,7 +56,7 @@ const createProduct = async ({ name, description, price, tags, images }) => {
     })
     return res.data;
   } catch (e) {
-    return handleAxiosError(e, 'deleteArticle');
+    return handleAxiosError(e, createProduct.name);
   }
 }
 
@@ -69,7 +69,7 @@ const patchProduct = async (i, body) => {
     });
     return res.data;
   } catch (e) {
-    return handleAxiosError(e, 'deleteArticle');
+    return handleAxiosError(e, patchProduct.name);
   }
 }
 
@@ -78,7 +78,7 @@ const deleteProduct = async (i) => {
     const res = await axios.delete(`${productsURL}/${i}`);
     return res.data;
   } catch (e) {
-    return handleAxiosError(e, 'deleteArticle');
+    return handleAxiosError(e, deleteProduct.name);
   }
 }
 

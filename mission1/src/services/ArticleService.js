@@ -18,7 +18,7 @@ const getArticleList = (page, pageSize, keyword) => {
       .filter(validateArticle)
       .map(i => new Article(i));
     })
-    .catch(e => handleAxiosError(e, 'getArticleList'));
+    .catch(e => handleAxiosError(e, getArticleList.name));
 }
 
 const getArticle = (i) => {
@@ -28,7 +28,7 @@ const getArticle = (i) => {
       if (!validateArticle(data)) return null;
       return data; // return new Article(data)
       })
-    .catch(e => handleAxiosError(e, 'getArticle'));
+    .catch(e => handleAxiosError(e, getArticle.name));
 }
 
 const createArticle = ({ title, content, image }) => {
@@ -42,7 +42,7 @@ const createArticle = ({ title, content, image }) => {
     }
   })
     .then(res => res.data)
-    .catch(e => handleAxiosError(e, 'createArticle'));
+    .catch(e => handleAxiosError(e, createArticle.name));
 }
 
 const patchArticle = (i, body) => {
@@ -52,13 +52,13 @@ const patchArticle = (i, body) => {
     }
   })
     .then(res => res.data)
-    .catch(e => handleAxiosError(e, 'patchArticle'));
+    .catch(e => handleAxiosError(e, patchArticle.name));
 }
 
 const deleteArticle = (i) => {
   return axios.delete(`${articlesURL}/${i}`)
     .then(res => res.data)
-    .catch(e => handleAxiosError(e, 'deleteArticle'));
+    .catch(e => handleAxiosError(e, deleteArticle.name));
 }
 
 export { getArticleList, getArticle, createArticle, patchArticle, deleteArticle };
