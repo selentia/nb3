@@ -38,18 +38,18 @@ const executeProducts = async (page, pageSize, keyword) => {
 }
 
 const main = async (page, pageSize, keyword) => {
-  const articleResults = await executeArticles(page, pageSize, keyword);
   const productResults = await executeProducts(page, pageSize, keyword);
+  const articleResults = await executeArticles(page, pageSize, keyword);
 
   const LINE = '\n// -------------------- //\n'
 
-  console.log('Product 인스턴스 목록:', productResults.products, LINE);
+  console.log('Product 인스턴스 목록:', productResults.getProductListResult, LINE);
   console.log('getProduct 결과:', productResults.getProductResult, LINE);
   console.log('createProduct 결과:', productResults.createProductResult, LINE);
   console.log('patchProduct 결과:', productResults.patchProductResult, LINE);
   console.log('deleteProduct 결과:', productResults.deleteProductResult, LINE);
 
-  console.log('Article 인스턴스 목록:', articleResults.articles, LINE);
+  console.log('Article 인스턴스 목록:', articleResults.getArticleListResult, LINE);
   console.log('getArticle 결과:', articleResults.getArticleResult, LINE);
   console.log('createArticle 결과:', articleResults.createArticleResult, LINE);
   console.log('patchArticle 결과:', articleResults.patchArticleResult, LINE);
