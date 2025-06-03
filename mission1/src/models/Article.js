@@ -48,3 +48,29 @@ export class Article {
     return this.#likeCount;
   }
 }
+
+/* 
+※ Article에도 상속이 필요하다면,
+아래와 같은 느낌으로 prioirty를 두고 상속 및 다형성(override) 구현 가능할 것.
+
+import { Article } from './Article.js';
+
+export class NoticeArticle extends Article {
+  #priority;
+  constructor({ priority = 'high', ...rest }) {
+    super(rest);
+    this.priority = priority;
+  }
+  get priority() {
+    return this.#priority;
+  }
+  set priority(i) {
+    this.#priority = i;
+  }
+
+  like() {
+    super.like();
+    super.like();
+  }
+}
+ */
